@@ -48,6 +48,17 @@ public class Encrypt {
      * @see <a href="http://www.asciitable.com/">ASCII Character Table</a>
      */
     public static char[] encrypt(final char[] line, final int shift) {
+        char[] lineCopy = line.clone();
+        int[] alphaN = new int[line.length];
+        for (int count = 0; count <= line.length - 1; count++) {
+            alphaN[count] = (int) lineCopy[count];
+            if (shift > MAX_SHIFT || shift < MIN_SHIFT) {
+                return null;
+            } else if (alphaN[count] > TRANSFORM_START || alphaN[count] < TRANSFORM_END) {
+                return null;
+            }
+            alphaN[count] += shift;
+        }
         return 0;
     }
 
