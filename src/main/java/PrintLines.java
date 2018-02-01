@@ -49,10 +49,22 @@ public class PrintLines {
      * nothing: not their name, not any "---" separators.</li>
      * </ol>
      * <p>
+     * @param actress  a string of the actress's (or actor's) name who's lines this is meant to print.
+     * @param scriptLines an array of strings containing the lines meant to print.
+     * @return an array of strings?
      * Complete the Javadoc comment and write this function.
      */
     public static void printLinesFor(final String actress, final String[] scriptLines) {
-
+        boolean role = false;
+        for (int search = 0; search < scriptLines.length; search++){
+            if (scriptLines[search].contains(actress.toUpperCase())) {
+                role = true;
+                System.out.println(actress.toUpperCase());
+            }
+            if (role == false) {
+                return null;
+            }
+        }
         return;
     }
 
