@@ -50,24 +50,27 @@ public class Encrypt {
      * @see <a href="http://www.asciitable.com/">ASCII Character Table</a>
      */
     public static char[] encrypt(final char[] line, final int shift) {
+        System.out.println(TRANSFORM_MODULUS);
         if (shift > MAX_SHIFT || shift < MIN_SHIFT) {
             return null;
         }
         char[] lineCopy = line.clone();
         int[] alphaN = new int[line.length];
         int adjShift = shift % TRANSFORM_MODULUS;
+        System.out.println(adjShift);
         for (int count = 0; count <= line.length - 1; count++) {
             alphaN[count] = (int) lineCopy[count];
             if (alphaN[count] < TRANSFORM_START || alphaN[count] > TRANSFORM_END) {
                 return null;
             }
             alphaN[count] += adjShift;
+
             if (alphaN[count] > TRANSFORM_END) {
-                int newShift = (alphaN[count] - TRANSFORM_END) + TRANSFORM_START;
+                int newShift = alphaN[count] - TRANSFORM_MODULUS;
                 alphaN[count] = newShift;
             }
             if (alphaN[count] < TRANSFORM_START) {
-                int newerShift = (alphaN[count] - TRANSFORM_START) + TRANSFORM_END;
+                int newerShift = alphaN[count] + TRANSFORM_MODULUS;
                 alphaN[count] = newerShift;
             }
             lineCopy[count] = (char) alphaN[count];
