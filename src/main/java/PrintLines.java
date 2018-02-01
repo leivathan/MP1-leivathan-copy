@@ -51,23 +51,38 @@ public class PrintLines {
      * <p>
      * @param actress  a string of the actress's (or actor's) name who's lines this is meant to print.
      * @param scriptLines an array of strings containing the lines meant to print.
-     * @return an array of strings?
      * Complete the Javadoc comment and write this function.
      */
     public static void printLinesFor(final String actress, final String[] scriptLines) {
         boolean role = false;
-        for (int search = 0; search < scriptLines.length; search++){
-            if (scriptLines[search].contains(actress.toUpperCase())) {
+        boolean isLines = false;
+        for (int search = 0; search < scriptLines.length; search++) {
+            if (scriptLines[search].equals(actress.toUpperCase())) {
                 role = true;
-                System.out.println(actress.toUpperCase());
-            }
-            if (role == false) {
-                return null;
             }
         }
-        return;
+        if (!role) {
+            return;
+        }
+        System.out.println(actress.toUpperCase());
+        System.out.println("---");
+        for (int part = 0; part < scriptLines.length; part++) {
+            if (scriptLines[part].equals("") && isLines) {
+                isLines = false;
+                System.out.println("---");
+            }
+            if (isLines) {
+                System.out.println(scriptLines[part]);
+            }
+            if (scriptLines[part].equals(actress.toUpperCase())) {
+                isLines = true;
+            }
+        }
+        if (isLines) {
+            System.out.println("---");
+        }
     }
-
+    //Rent is a terrible musical.
     /* ********************************************************************************************
      * You do not need to modify code below this comment.
      * ********************************************************************************************/
