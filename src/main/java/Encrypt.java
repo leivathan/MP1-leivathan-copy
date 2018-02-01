@@ -44,22 +44,30 @@ public class Encrypt {
      * credit.</strong>
      * <p>
      * Complete the Javadoc comment for this function and write it.
-     *
+     * @param line an array of characters to encrypt.
+     * @param shift the shift of the cipher along the ASCII table.
+     * @return array of encrypted characters.
      * @see <a href="http://www.asciitable.com/">ASCII Character Table</a>
      */
     public static char[] encrypt(final char[] line, final int shift) {
         char[] lineCopy = line.clone();
         int[] alphaN = new int[line.length];
+        int adjShift = shift % TRANSFORM_MODULUS;
         for (int count = 0; count <= line.length - 1; count++) {
             alphaN[count] = (int) lineCopy[count];
             if (shift > MAX_SHIFT || shift < MIN_SHIFT) {
                 return null;
-            } else if (alphaN[count] > TRANSFORM_START || alphaN[count] < TRANSFORM_END) {
+            } else if (alphaN[count] < TRANSFORM_START || alphaN[count] > TRANSFORM_END) {
                 return null;
             }
-            alphaN[count] += shift;
+            alphaN[count] += adjShift;
+            if (alphaN[count] > TRANSFORM_END) {
+                int newShift = adjShift - (alphaN[count] - TRANSFORM_END) + TRANSFORM_START;
+                alphaN[count] = newShift;
+            }
+            lineCopy[count] = (char) alphaN[count];
         }
-        return 0;
+        return lineCopy;
     }
 
     /**
